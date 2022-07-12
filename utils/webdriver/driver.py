@@ -5,9 +5,9 @@ from dataclasses import dataclass
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from subprocess import CREATE_NO_WINDOW
-from core import path
+from utils import path
 
-from modules.browser.driverOptions import DriverOptions
+from utils.webdriver.driverOptions import DriverOptions
 
 
 @dataclass
