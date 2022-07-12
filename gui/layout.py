@@ -6,7 +6,7 @@ def layout():
 
         layouts = [
               [sg.FileBrowse('Load Excel', key="-PATH-", target='-LOAD_EXCEL-',  file_types=((".xlsx, xls, CSV", ["*.xlsx","*.xls","*.csv",]),)),
-                   sg.Input('', key="-LOAD_EXCEL-", change_submits=True)],
+                   sg.Input('', key="-LOAD_EXCEL-", enable_events=True, disabled=True)],
                   [sg.Table(values=data,
                             key="-TABLE-",
                             headings=header_list,
@@ -20,7 +20,7 @@ def layout():
 
                             num_rows=25)],
                 
-                  [sg.Button('Start',  key='-START-', disabled=True), sg.Button('Exit')], ]
+                  [sg.Button('Start',  key='-START-', disabled=True), sg.Button('automate',  key='-AUTOMATE-', disabled=False), sg.Button('Exit')], ]
 
         return layouts
     

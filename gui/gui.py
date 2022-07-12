@@ -13,6 +13,7 @@ class Gui:
     def start_gui(self):
         sg.change_look_and_feel('Light Green 1')
 
+
         window = sg.Window('Pcare BPJS', layout(),
                            icon=r'resource\icon.ico', finalize=True, modal=True, element_justification='c')
         
