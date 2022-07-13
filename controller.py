@@ -65,7 +65,11 @@ def update_table_gui(user: list, status: list, window: object) -> None:
     Method to update table on GUI
     """
 
-    helper.update_gui_table(user=user, status=status, window=window)
+    threading.Thread(target=helper.update_gui_table, args=(
+        user, status, window, ),  daemon=True).start()
+
+    threading.Thread(target=helper.update_excel_table, args=(
+        user, status, window, ),  daemon=True).start()
 
 
 def automate_loop(driver, window):

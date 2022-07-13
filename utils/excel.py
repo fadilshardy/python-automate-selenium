@@ -8,11 +8,14 @@ def load_excel(excel_path: str) -> list:
     :return: dataframe list
     """
     df = pd.read_excel(excel_path)
-    
+
     if 'STATUS' not in df:
-        return df.assign(STATUS="NONE")
-        
+        df = df.assign(STATUS="NONE")
+    if 'DESCRIPTION' not in df:
+        df = df.assign(DESCRIPTION=None)
+
     return df
+
 
 def add_status_column_to_excel(excel_path: str) -> list:
     """
@@ -20,25 +23,24 @@ def add_status_column_to_excel(excel_path: str) -> list:
 
     :return: dataframe list
     """
-    
+
     df = load_excel(excel_path)
-    
+
     new_df = df.assign(STATUS="NONE")
-    
+
     new_df.to_excel('converted.xlsx', index=False)
-    
+
     return new_df
-    
 
 
 def update_background_color(df: object) -> object:
     """
     update background color of the dataframe based on status row.
 
-    :return: updated dataframe list 
+    :return: updated dataframe list
     """
 
-    def rowStyle(row):
+    def row_style(row):
         if row['STATUS'] == "NONE":
             return ['background-color: #B3B6B7'] * len(row)
         if row['STATUS'] == "BERHASIL":
@@ -50,19 +52,21 @@ def update_background_color(df: object) -> object:
         return ['background-color: #FBF8F1'] * len(row)
 
     updated_df = df.style\
-        .apply(rowStyle, axis=1)
+        .apply(row_style, axis=1)
 
     return updated_df
 
 
-def save_to_excel(df: object, filename: str = 'output') -> object:
+def save_to_excel(df: object, file_name: str = 'output', folder_path: str = '') -> object:
     """
     save dataframe to excel file
 
     :return: saved dataframe
     """
 
-    df.to_excel(f'{filename}.xlsx', index=False)
+    file_path = f'{folder_path}/{file_name}'
+
+    df.to_excel(f'{file_path}.xlsx', index=False)
 
     return df
 
@@ -92,7 +96,7 @@ def get_column_by_nik(df: object, nik: int) -> object:
 
 
 def get_first_nik_column_by_status_none(df: object) -> int:
-    """ 
+    """
     get first column of dataframe with status none
 
     :return: first column of dataframe nik number (int)

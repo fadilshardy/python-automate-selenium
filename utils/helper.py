@@ -1,5 +1,8 @@
+import os
+
 import PySimpleGUI as sg
-from numpy import row_stack
+
+from utils import excel
 
 
 def get_first_user_with_status_none_from_table(datalist: list) -> list:
@@ -60,3 +63,39 @@ def empty_popup() -> None:
     """
 
     sg.Popup('Tidak ada user dengan status NONE. check atau load ulang data')
+
+
+def update_excel_table(user: list, status, window: object):
+    """
+    update excel data by user NIK then update the excel style color
+    """
+
+    file_path = window['-LOAD_EXCEL-'].get()
+    folder_path = os.path.dirname(file_path)
+
+    file_name = os.path.basename(file_path).split('.')[0]
+
+    user_nik = user[0]
+
+    original_file = f'{folder_path}/{file_name}.xlsx'
+    temporary_file = f'{folder_path}/{file_name}_temp.xlsx'
+
+    df = excel.load_excel(file_path)
+    while True:
+        try:
+            # workaround to check if file is writeable or not ***WINDOWS ONLY***
+            os.rename(original_file, temporary_file)
+            os.rename(temporary_file, original_file)
+
+            excel.update_status_by_nik(df, user_nik, status['success'])
+            excel.update_description_by_nik(df, user_nik, status['message'])
+
+            styled_df = excel.update_background_color(df)
+            excel.save_to_excel(
+                df=styled_df, file_name=file_name, folder_path=folder_path)
+            break
+        except OSError:
+            error_alert = sg.Popup(
+                'Error!', f'file tidak bisa diedit, tutup aplikasi yang membuka file {file_name}')
+            if error_alert == 'ok':
+                continue

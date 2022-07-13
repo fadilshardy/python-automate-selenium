@@ -1,7 +1,12 @@
 import PySimpleGUI as sg
 
 
-def layout():
+def layout() -> list:
+    """
+    GUI layout
+
+    :return: list
+    """
     data = []
     header_list = ['PSNOKA_BPJS', 'NAMA INDIVIDU', '  STATUS  ']
 
@@ -21,6 +26,6 @@ def layout():
 
                   num_rows=25)],
 
-        [sg.Button('Start',  key='-START-', disabled=True), sg.Button('automate',  key='-AUTOMATE-', disabled=False), sg.Button('Exit')], ]
+        [sg.Button('Start',  key='-START-', disabled=True), sg.Button('Setting',  key='-SETTING-', disabled=True), sg.Button('Exit')], ]
 
     return layouts
