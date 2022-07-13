@@ -40,6 +40,9 @@ def load_excel_to_gui(values, window):
     rows_count = helper.rows_input_popup()
 
     file_path = values['-LOAD_EXCEL-']
+    if not helper.check_file_is_writeable(file_path):
+        return None
+
     df = excel.load_excel(file_path)
 
     df_status_none = excel.get_columns_by_status(
@@ -60,16 +63,22 @@ def automate_input(user, driver, window):
         user, driver, window, ),  daemon=True).start()
 
 
-def update_table_gui(user: list, status: list, window: object) -> None:
+def update_table_gui(user: list, status: list, window: object, driver: object) -> None:
     """
     Method to update table on GUI
     """
 
     threading.Thread(target=helper.update_gui_table, args=(
-        user, status, window, ),  daemon=True).start()
+        user, status, window, driver,),  daemon=True).start()
+
+
+def update_excel_table(user: list, status: list, window: object, driver: object) -> None:
+    """
+    Method to update table on excel
+    """
 
     threading.Thread(target=helper.update_excel_table, args=(
-        user, status, window, ),  daemon=True).start()
+        user, status, window, driver,),  daemon=True).start()
 
 
 def automate_loop(driver, window):

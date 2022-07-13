@@ -21,6 +21,17 @@ def gui_event(driver, event, values, window):
         case '-UPDATE_TABLE-':
             user = values[event]['user']
             status = values[event]['status']
-            controller.update_table_gui(user, status, window)
+            driver = values[event]['driver']
+
+            controller.update_table_gui(
+                user=user, status=status, window=window, driver=driver)
+
+        case '-UPDATE_EXCEL-':
+            user = values[event]['user']
+            status = values[event]['status']
+            driver = values[event]['driver']
+
+            controller.update_excel_table(
+                user=user, status=status, window=window, driver=driver)
         case '-DATA_EMPTY-':
             controller.data_empty(driver=values[event])

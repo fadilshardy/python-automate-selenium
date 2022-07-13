@@ -28,7 +28,7 @@ def get_data_list_from_table_gui(window: object) -> list:
     return window['-TABLE-'].get()
 
 
-def update_gui_table(user, status, window) -> None:
+def update_gui_table(user, status, window, driver) -> None:
     """
     update GUI table
     """
@@ -40,6 +40,9 @@ def update_gui_table(user, status, window) -> None:
     datalist[user_index][2] = status['success'].upper()
 
     window['-TABLE-'].update(values=datalist)
+
+    window.write_event_value(
+        '-UPDATE_EXCEL-', {'user': user, 'status': status, 'driver': driver})
 
 
 def rows_input_popup() -> int:
@@ -65,7 +68,7 @@ def empty_popup() -> None:
     sg.Popup('Tidak ada user dengan status NONE. check atau load ulang data')
 
 
-def update_excel_table(user: list, status, window: object):
+def update_excel_table(user: list, status, window: object, driver: object):
     """
     update excel data by user NIK then update the excel style color
     """
@@ -77,25 +80,38 @@ def update_excel_table(user: list, status, window: object):
 
     user_nik = user[0]
 
+    df = excel.load_excel(file_path)
+
+    excel.update_status_by_nik(df, user_nik, status['success'])
+    excel.update_description_by_nik(df, user_nik, status['message'])
+
+    styled_df = excel.update_background_color(df)
+    excel.save_to_excel(
+        df=styled_df, file_name=file_name, folder_path=folder_path)
+
+    window.write_event_value('-AUTOMATE_LOOP-', driver)
+
+
+def check_file_is_writeable(file_path: str):
+    """
+    workaround to check if file is writeable or not ***WINDOWS ONLY***
+    """
+
+    folder_path = os.path.dirname(file_path)
+    file_name = os.path.basename(file_path).split('.')[0]
+
     original_file = f'{folder_path}/{file_name}.xlsx'
     temporary_file = f'{folder_path}/{file_name}_temp.xlsx'
 
-    df = excel.load_excel(file_path)
-    while True:
-        try:
-            # workaround to check if file is writeable or not ***WINDOWS ONLY***
-            os.rename(original_file, temporary_file)
-            os.rename(temporary_file, original_file)
+    try:
+        os.rename(original_file, temporary_file)
+        os.rename(temporary_file, original_file)
 
-            excel.update_status_by_nik(df, user_nik, status['success'])
-            excel.update_description_by_nik(df, user_nik, status['message'])
+        return True
 
-            styled_df = excel.update_background_color(df)
-            excel.save_to_excel(
-                df=styled_df, file_name=file_name, folder_path=folder_path)
-            break
-        except OSError:
-            error_alert = sg.Popup(
-                'Error!', f'file tidak bisa diedit, tutup aplikasi yang membuka file {file_name}')
-            if error_alert == 'ok':
-                continue
+    except OSError:
+        error_popup = sg.Popup(
+            'Error!', f'file tidak bisa diedit, tutup aplikasi yang membuka file {file_name}')
+
+        if error_popup == 'ok':
+            return False
