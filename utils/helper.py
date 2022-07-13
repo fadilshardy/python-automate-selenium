@@ -1,13 +1,13 @@
-def get_first_user_with_status_none_from_table(window: object) -> list:
+def get_first_user_with_status_none_from_table(datalist: list) -> list:
     """
     get first NIK with status NONE by filtering datalist from table GUI
     """
-    
-    datalist = window['-TABLE-'].get()
-        
-    user = next(x for x in datalist if(x[2] == "NONE"))
+            
+    user = next((x for x in datalist if(x[2] == "NONE")), None)
     
     return user
+
+    
     
     
 def update_gui_table(datalist, user, status, window) -> None:

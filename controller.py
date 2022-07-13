@@ -47,21 +47,29 @@ def automate_input(driver, window):
     """ 
     Method to automate data to website
     """
-    datalist = window['-TABLE-'].get()
+    
+    while True:
+        try:
+            datalist = window['-TABLE-'].get()
 
-    user = helper.get_first_user_with_status_none_from_table(window)
-    
-    NIK = int(user[0])
-    
-    search_user.search(nik=NIK, driver=driver, window=window)
+            user = helper.get_first_user_with_status_none_from_table(datalist)
+            
+            
+            if(user is None):
+                print('data kosong')
+                break
+            
+            NIK = int(user[0])
 
-    result = search_user.check_response_modal(driver, window=window)
-    
-    if(result['success']):
-        status = 'BERHASIL'
-    else:
-        status='GAGAL'
-    
-    helper.update_gui_table(datalist=datalist, user=user, status=status, window=window)
+            result = search_user.search(nik=NIK, driver=driver, window=window)
+                        
+            if(result['success']):
+                status = 'BERHASIL'
+            else:
+                status='GAGAL'
+            
+            helper.update_gui_table(datalist=datalist, user=user, status=status, window=window)
+        except Exception as e:
+            print(e)
 
 
