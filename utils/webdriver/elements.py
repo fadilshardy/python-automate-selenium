@@ -44,8 +44,6 @@ def wait_element(driver: object, window: object, path: str, selector: str = 'xpa
     except WebDriverException:
         gui_events.write_event('-ERROR-', driver, window,
                                message='Browser tidak ditemukan')
-    except Exception as e:
-        print(e)
 
 
 def find_element(driver: object, window: object, path: str, selector: str = 'xpath') -> dict:
@@ -73,8 +71,6 @@ def find_element(driver: object, window: object, path: str, selector: str = 'xpa
     except WebDriverException:
         gui_events.write_event('-ERROR-', driver, window,
                                message='Browser tidak ditemukan')
-    except Exception as e:
-        print(e)
 
 
 def check_element_exists(driver: object, path: str, selector: str = 'xpath') -> bool:
@@ -87,7 +83,7 @@ def check_element_exists(driver: object, path: str, selector: str = 'xpath') -> 
     identifier = get_selector(selector)
 
     try:
-        element = driver.find_element(identifier, path)
+        driver.find_element(identifier, path)
     except NoSuchElementException:
         return False
     return True
@@ -119,9 +115,12 @@ def check_element_clickable(driver: object, window: object, path: str, selector:
                                message='Browser tidak ditemukan')
 
 
-def wait_text_to_be_present(driver: object, window: object, path: str, text: str, selector: str = 'xpath') -> bool:
+def wait_text_to_be_present(driver: object,
+                            window: object,
+                            path: str, text: str,
+                            selector: str = 'xpath') -> bool:
     """
-    wait until text is present from the given element 
+    wait until text is present from the given element
 
     :return: bool
     """
@@ -138,7 +137,11 @@ def wait_text_to_be_present(driver: object, window: object, path: str, text: str
                                message='Browser tidak ditemukan')
 
 
-def check_if_text_is_present(driver: object, window: object, path: str, text: str, selector: str = 'xpath') -> bool:
+def check_if_text_is_present(driver: object,
+                             window: object,
+                             path: str, text:
+                             str, selector:
+                             str = 'xpath') -> bool:
     """
     check if text is present from the given element text
 
@@ -159,9 +162,13 @@ def check_if_text_is_present(driver: object, window: object, path: str, text: st
                                message='Browser tidak ditemukan')
 
 
-def select_input_element(text: str, driver: object, window: object, path: str, selector: str = 'xpath') -> None:
-    """ 
-    Select the input dropdown by text 
+def select_input_element(text: str,
+                         driver: object,
+                         window: object,
+                         path: str,
+                         selector: str = 'xpath') -> None:
+    """
+    Select the input dropdown by text
 
     :return: none
     """
