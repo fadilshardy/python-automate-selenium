@@ -26,6 +26,8 @@ def login_app(driver, window):
     """
     driver_instance = driver.get_driver()
 
+    window['-START-'].update(disabled=True)
+
     threading.Thread(target=login.login_website, args=(
         driver_instance, window,),  daemon=True).start()
 
@@ -76,16 +78,17 @@ def automate_loop(driver, window):
     user = helper.get_first_user_with_status_none_from_table(datalist)
 
     if user is None:
-        print('data kosong')
-        return window.write_event_value('-DATA_EMPTY-', 'empty')
+        return window.write_event_value('-DATA_EMPTY-', driver)
 
     window.write_event_value(
         '-AUTOMATE-', {'driver': driver, 'user': user})
 
 
-def data_empty():
+def data_empty(driver: object):
     """
     Method to handle if data user by status NONE is empty
     """
+
+    driver.quit()
 
     helper.empty_popup()

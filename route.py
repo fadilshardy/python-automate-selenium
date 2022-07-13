@@ -23,4 +23,4 @@ def gui_event(driver, event, values, window):
             status = values[event]['status']
             controller.update_table_gui(user, status, window)
         case '-DATA_EMPTY-':
-            controller.data_empty()
+            controller.data_empty(driver=values[event])

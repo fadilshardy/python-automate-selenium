@@ -1,4 +1,5 @@
 import PySimpleGUI as sg
+from numpy import row_stack
 
 
 def get_first_user_with_status_none_from_table(datalist: list) -> list:
@@ -47,7 +48,7 @@ def rows_input_popup() -> int:
     rows_count = sg.popup_get_text(
         'how many rows?', no_titlebar=True, keep_on_top=True)
 
-    if rows_count is None:
+    if not rows_count:
         rows_count = 10
 
     return int(rows_count)
@@ -58,5 +59,4 @@ def empty_popup() -> None:
     display  a popup if datalist has no user by status NONE
     """
 
-    sg.Popup(
-        'Warning!', 'Tidak ada user dengan status NONE. check atau load ulang data')
+    sg.Popup('Tidak ada user dengan status NONE. check atau load ulang data')
