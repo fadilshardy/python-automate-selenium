@@ -1,16 +1,16 @@
 import PySimpleGUI as sg
 
 
-def layout() -> list:
+def main_layout() -> list:
     """
-    GUI layout
+    main GUI layout
 
     :return: list
     """
     data = []
     header_list = ['PSNOKA_BPJS', 'NAMA INDIVIDU', '  STATUS  ']
 
-    layouts = [
+    layout = [
         [sg.FileBrowse('Load Excel', key="-PATH-", target='-LOAD_EXCEL-',  file_types=((".xlsx, xls, CSV", ["*.xlsx", "*.xls", "*.csv", ]),)),
          sg.Input('', key="-LOAD_EXCEL-", enable_events=True, disabled=True)],
         [sg.Table(values=data,
@@ -26,6 +26,34 @@ def layout() -> list:
 
                   num_rows=25)],
 
-        [sg.Button('Start',  key='-START-', disabled=True), sg.Button('Setting',  key='-SETTING-', disabled=True), sg.Button('Exit')], ]
+        [sg.Button('Start',  key='-START-', disabled=True), sg.Button('Setting',  key='-SETTING-', disabled=False), sg.Button('Exit')], ]
 
-    return layouts
+    return layout
+
+
+def setting_layout() -> list:
+    """
+    setting GUI layout
+
+    :return: list
+    """
+    setting = {'-username-': 'test', '-password-': '****'}  # get_setting()
+
+    layout = [
+        [
+            sg.Text("Username", size=(20, 1)),
+            sg.InputText(default_text=setting['-username-'],
+                         size=(20, 1),
+                         key='-username-'),
+        ],
+        [
+            sg.Text("Password", size=(20, 1)),
+            sg.InputText(default_text=setting['-password-'],
+                         size=(20, 1),
+                         key='-password-'),
+        ],
+        [sg.Button('Start',  key='-START-', disabled=True), sg.Button('Setting',
+                                                                      key='-SETTING-', disabled=False), sg.Button('Exit')],
+    ]
+
+    return layout

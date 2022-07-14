@@ -5,7 +5,7 @@ inspired by the mix of MVC (Model-View-Controller) pattern and DDD (Domain-drive
 ## <b>gui</b>
 ## <b>modules</b>
 ## <b>utils</b>
- 
+
 
 
 # TODO
@@ -14,3 +14,9 @@ inspired by the mix of MVC (Model-View-Controller) pattern and DDD (Domain-drive
 - USE THREADING ON ALL GUI EVENT
 - ADD LOOPING THRU ALL DATA FROM TABLE GUI
 - UPDATE DATAFRAME EXCEL EACH ITERATION
+
+
+# THINGS TO IMPROVE
+- BETTER DOCSTRING
+- DECOUPLING
+-

@@ -1,6 +1,7 @@
 import os
 import sys
 import threading
+import route
 
 from utils import excel
 from utils import helper
@@ -14,8 +15,8 @@ def exit_app():
     method to force close driver & main app instance.
     """
 
-    os.system("taskkill /f /im  driver.exe")
-    os.system("taskkill /f /im  pcare-vaksin.exe")
+    os.system("taskkill /f /im  chromedriver.exe")
+    # os.system("taskkill /f /im  pcare-vaksin.exe")
 
     sys.exit()
 
@@ -105,3 +106,23 @@ def data_empty(driver: object):
     driver.quit()
 
     helper.empty_popup()
+
+
+def open_setting_gui(setting_window: object):
+    """
+    """
+
+    setting_window = setting_window.start_gui()
+
+    try:
+        event, values = setting_window.read()
+        setting_window.close()
+
+        route.setting_event(event, values, setting_window)
+
+        if event == "Exit" or event is None:
+            setting_window.close()
+            del setting_window
+
+    except Exception as e:
+        print(e)
