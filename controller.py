@@ -89,7 +89,7 @@ def automate_loop(driver, window):
 
     datalist = window['-TABLE-'].get()
 
-    user = helper.get_first_user_with_status_none_from_table(datalist)
+    user = helper.get_first_user_with_status_none_from_table_gui(datalist)
 
     if user is None:
         return window.write_event_value('-DATA_EMPTY-', driver)

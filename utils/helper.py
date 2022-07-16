@@ -5,7 +5,7 @@ import PySimpleGUI as sg
 from utils import excel
 
 
-def get_first_user_with_status_none_from_table(datalist: list) -> list:
+def get_first_user_with_status_none_from_table_gui(datalist: list) -> list:
     """
     get first NIK with status NONE by filtering datalist from table GUI
 
