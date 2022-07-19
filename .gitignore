@@ -2,6 +2,7 @@
 /modules/bpjs
 chromedriver.exe
 .vscode
+firebase-sdk.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

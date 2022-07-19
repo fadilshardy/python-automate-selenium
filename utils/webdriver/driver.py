@@ -1,12 +1,12 @@
-import chromedriver_autoinstaller
 import os
+from subprocess import CREATE_NO_WINDOW
 
 from dataclasses import dataclass
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
-from subprocess import CREATE_NO_WINDOW
-from utils import path
+import chromedriver_autoinstaller
 
+from utils import path
 from utils.webdriver.driverOptions import DriverOptions
 
 
