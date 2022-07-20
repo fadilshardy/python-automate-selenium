@@ -1,17 +1,20 @@
 import firebase_admin
 from firebase_admin import credentials
-from resource.crypt import load_key, decrypt, to_dict
+from utils import crypt
 
 
 def initialize_firebase():
+    """
+    initiate firebase admin instance
+    """
     try:
-        credential_path = r'resource\sdk.bin'
+        firebase_sdk = r'resource\firebase-sdk.json'
 
-        key = load_key()
+        key = crypt.load_key()
 
-        decrypt_credentials = decrypt(credential_path, key)
+        decrypt_sdk = crypt.decrypt_to_bytes(firebase_sdk, key)
 
-        credential = to_dict(decrypt_credentials)
+        credential = crypt.convert_to_dict(decrypt_sdk)
 
         cred = credentials.Certificate(credential)
 

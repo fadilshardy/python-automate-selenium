@@ -25,9 +25,8 @@ decrypt file with given filepath:
     py -m utils.crypt -d -file_path=RELATIVE_FILE_PATH
 
 ```
----
 # auth
-simple auth wrapper using [firebase-admin-python](https://github.com/firebase/firebase-admin-python), where a user asked to input email along with mac address as identifier, then admin can approve user from firebase authentication.
+simple auth wrapper using [firebase-admin-python](https://github.com/firebase/firebase-admin-python), where a user asked to input email along with mac address as identifier, then admin can approve users from firebase authentication.
 
 
 # TODO
@@ -35,7 +34,6 @@ simple auth wrapper using [firebase-admin-python](https://github.com/firebase/fi
 - ADD SETTING/DATA JSON
 - FIREBASE AUTH
 - FINISH AUTOMATION
-- ADD CRYPT HELPER
 
 # THINGS TO IMPROVE
 - BETTER DOCSTRING

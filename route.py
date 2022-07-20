@@ -42,7 +42,7 @@ def main_event(driver, event, values, window):
             controller.exit_app()
 
 
-def setting_event(event, values, window):
+def setting_event(event, values):
     """
     method to handle all event routes by setting GUI
     """

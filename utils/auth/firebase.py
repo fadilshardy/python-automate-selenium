@@ -1,42 +1,55 @@
 from firebase_admin import auth
-from firebase_admin import exceptions
-
 from getmac import get_mac_address as gma
 
-from auth.initialize_admin import initialize_firebase
+from utils.auth.initialize_admin import initialize_firebase
 
 
 class Firebase():
+    """
+    Represents main Firebase class instance.
+    """
     def __init__(self):
         self.app = initialize_firebase()
         self.user_mac_address = gma()
 
-    def create_user(self, email):
+    def register_user(self, email):
+        """
+        register a user to firebase authentication using mac address as uid
+        """
         try:
             auth.create_user(
                 email=email, uid=self.user_mac_address, disabled=True)
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
 
-    def check_user(self):
+    def check_user(self) -> str:
+        """
+        check if user is active
+
+        :return: user status (str)
+        """
 
         try:
-            # check by uid (mac address)
             user = auth.get_user(self.user_mac_address)
         except auth.UserNotFoundError:
             return "notRegistered"
         except Exception:
             return "connectionError"
 
-            # check if user is active
-        if(user.disabled != True):
+        if user.disabled is not True:
             return "active"
-        elif(user.disabled == True):
-            return "fas"
-        else:
-            return "unknown"
 
-    def get_user_email(self):
+        if user.disabled is True :
+            return "notActive"
+
+        return "unknown"
+
+    def get_user_email(self) -> str:
+        """
+        get user email by mac address
+
+        :return: user email
+        """
         user = auth.get_user(self.user_mac_address)
 
         email = user.email
