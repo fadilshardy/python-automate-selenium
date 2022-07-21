@@ -1,4 +1,6 @@
 import controller
+from utils import helper
+from gui import popup
 
 
 def main_event(driver, event, values, window):
@@ -50,3 +52,34 @@ def setting_event(event, values):
     match event:
         case '-SAVE-':
             print(event[values])
+
+
+def register_event(event, values, window, auth):
+    """
+    method to handle all event routes by register GUI
+    """
+
+    user_email = values['-email-']
+
+    match event:
+        case '-SUBMIT-':
+            if not helper.check_if_email_valid(user_email):
+                error_message = 'Input email tidak valid!'
+                popup.error_popup(error_message)
+                return
+
+            confirmation_message = f'Kirim verifikasi akun dengan email {user_email}? \nJika user sudah registrasi, email tidak akan bisa diganti lagi.\nakun yang sudah di verifikasi hanya bisa digunakan oleh satu komputer.'
+            confirmation = popup.confirmation_popup(confirmation_message)
+
+            if confirmation == 'Yes':
+                try:
+                    auth.register_user(user_email)
+                    window.write_event_value('Exit', None)
+
+                    notification_message = f'registrasi berhasil dengan email {user_email}, kontak admin untuk validasi akun!'
+                    popup.notification_pop(notification_message)
+
+
+
+                except Exception as error:
+                    popup.error_popup(error)

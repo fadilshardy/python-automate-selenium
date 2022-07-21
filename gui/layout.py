@@ -57,3 +57,18 @@ def setting_layout() -> list:
     ]
 
     return layout
+
+
+def register_layout() -> list:
+    """
+    register GUI layout
+
+    :return: list
+    """
+
+    layout = [
+    [sg.Text("Email", size=(15, 1), font=16),
+        sg.InputText(key='-email-', font=16)],
+    [sg.Button("-SUBMIT-")]]
+
+    return layout

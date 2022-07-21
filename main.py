@@ -1,44 +1,28 @@
 from dataclasses import dataclass
 
-from gui.gui import Gui
-from gui.setting import SettingGui
+from gui.main_gui import Gui
+from auth import Auth
+from gui.setting_gui import SettingGui
 from utils.webdriver.driver import Driver
-from utils.auth.firebase import Firebase
 
 import route
 import controller
 
 
 @dataclass
-class main:
+class Main:
     """
     main app
     """
 
-    main_window = Gui().start_gui()
-    driver = Driver()
-    auth = Firebase()
-
-    setting_window = SettingGui()
-
-    def auth_guard(self):
+    def start_app(self):
         """
-        auth guard based on user account status
+        start main app instance
         """
-        user_status = self.auth.check_user()
+        main_window = Gui().start_gui()
+        setting_window = SettingGui()
 
-        if not user_status:
-            # popup GUI with text "you already registered on this computer with email `email`,
-            # contact admin to validate your account"
-            return False
-        if user_status is None:
-            # auth.register_user
-            # Popup with register GUI
-            return None
-        if user_status is True:
-            return True
-
-    if auth_guard():
+        driver = Driver()
         while True:
             try:
                 event, values = main_window.read()
@@ -47,9 +31,20 @@ class main:
                 if event == '-SETTING-':
                     controller.open_setting_gui(setting_window)
 
-                if event == 'Exit' or event == 'WIN_CLOSED':
+                if event in ('Exit', 'WIN_CLOSED'):
                     main_window.write_event_value('-CLOSE_APP-', driver)
                     break
 
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
+
+
+if __name__ == "__main__":
+    try:
+        auth = Auth()
+        main = Main()
+
+        if auth.check():
+            main.start_app()
+    except Exception as e:
+        print(e, )

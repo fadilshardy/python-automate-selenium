@@ -1,5 +1,6 @@
+from operator import is_
 import os
-
+import re
 import PySimpleGUI as sg
 
 from utils import excel
@@ -115,3 +116,17 @@ def check_file_is_writeable(file_path: str):
 
         if error_popup == 'ok':
             return False
+
+
+def check_if_email_valid(email):
+    """
+    check if email address is in a valid format using re.match
+    """
+
+
+    is_valid = re.match(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email)
+
+    if is_valid is None:
+        return False
+
+    return True

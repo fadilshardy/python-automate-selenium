@@ -2,3 +2,6 @@
 
 # Good variable names which should always be accepted, separated by a comma.
 good-names=i, df, e, main
+
+[FORMAT]
+max-line-length=240

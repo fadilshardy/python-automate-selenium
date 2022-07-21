@@ -118,11 +118,12 @@ def open_setting_gui(setting_window: object):
         event, values = setting_window.read()
         setting_window.close()
 
-        route.setting_event(event, values, setting_window)
+        route.setting_event(event, values)
 
-        if event == "Exit" or event is None:
+        if event in ('Exit', 'WIN_CLOSED', None):
             setting_window.close()
             del setting_window
 
     except Exception as e:
         print(e)
+

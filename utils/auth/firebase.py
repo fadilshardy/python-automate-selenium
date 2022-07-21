@@ -1,16 +1,21 @@
+from dataclasses import dataclass
+
 from firebase_admin import auth
-from getmac import get_mac_address as gma
+from getmac import get_mac_address
 
 from utils.auth.initialize_admin import initialize_firebase
 
 
+@dataclass
 class Firebase():
     """
     Represents main Firebase class instance.
     """
-    def __init__(self):
-        self.app = initialize_firebase()
-        self.user_mac_address = gma()
+    try:
+        app = initialize_firebase()
+        user_mac_address = get_mac_address()
+    except Exception as e:
+        print(e)
 
     def register_user(self, email):
         """
@@ -22,27 +27,36 @@ class Firebase():
         except Exception as error:
             print(error)
 
-    def check_user(self) -> str:
+    def check_user_status(self) -> str:
         """
         check if user is active
 
         :return: user status (str)
         """
+        user = self.get_user()
+
+        if user.disabled:
+            return False
+
+        if user.disabled is None:
+            return None
+
+        return True
+
+    def get_user(self) -> object:
+        """
+        get user by uid (mac address)
+
+        :return: user status (str)
+        """
 
         try:
-            user = auth.get_user(self.user_mac_address)
+            return auth.get_user(self.user_mac_address)
+
         except auth.UserNotFoundError:
-            return "notRegistered"
-        except Exception:
-            return "connectionError"
-
-        if user.disabled is not True:
-            return "active"
-
-        if user.disabled is True :
-            return "notActive"
-
-        return "unknown"
+            return None
+        except Exception as error:
+            raise ValueError("Connection error") from error
 
     def get_user_email(self) -> str:
         """
