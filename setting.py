@@ -1,5 +1,4 @@
 
-import os
 import json
 from dataclasses import dataclass
 
@@ -16,8 +15,6 @@ class Setting:
     """
 
 
-    setting_file_path: str = os.path.join(path.get_resource_path(), 'setting.json')
-
     def get_setting(self):
         """
         get setting data from encrypted `setting.json`
@@ -27,7 +24,7 @@ class Setting:
 
         key = crypt.load_key()
 
-        decrypted_setting = crypt.decrypt_to_bytes(self.setting_file_path, key)
+        decrypted_setting = crypt.decrypt_to_bytes(path.get_setting_path(), key)
 
         settings = json.loads(decrypted_setting)
 

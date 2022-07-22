@@ -51,8 +51,7 @@ def setting_layout(setting_data) -> list:
                          size=(20, 1),
                          key='password'),
         ],
-        [sg.Button('Start',  key='-START-', disabled=True), sg.Button('Setting',
-                                                                      key='-SETTING-', disabled=False), sg.Button('Exit')],
+        [sg.Button('Save',  key='-SAVE-'), sg.Button('Exit')],
     ]
 
     return layout
@@ -66,8 +65,8 @@ def register_layout() -> list:
     """
 
     layout = [
-    [sg.Text("Email", size=(15, 1), font=16),
-        sg.InputText(key='-email-', font=16)],
-    [sg.Button("-SUBMIT-")]]
+        [sg.Text("Email", size=(15, 1), font=16),
+         sg.InputText(key='-email-', font=16)],
+        [sg.Button("-SUBMIT-")]]
 
     return layout

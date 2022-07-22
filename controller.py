@@ -1,10 +1,9 @@
 import os
 import sys
 import threading
-import route
+import json
 
-from utils import excel
-from utils import helper
+from utils import excel, helper, crypt, path
 
 from modules.bpjs import login
 from modules.bpjs import search_user
@@ -108,22 +107,16 @@ def data_empty(driver: object):
     helper.empty_popup()
 
 
-def open_setting_gui(setting_window: object):
+def save_setting(setting_data):
     """
+    save setting data to `setting.json` and encrypt it.
     """
 
-    setting_window = setting_window.start_gui()
 
-    try:
-        event, values = setting_window.read()
-        setting_window.close()
+    key = crypt.load_key()
 
-        route.setting_event(event, values)
 
-        if event in ('Exit', 'WIN_CLOSED', None):
-            setting_window.close()
-            del setting_window
+    with open(path.get_setting_path(), "w", encoding="utf-8") as write_file:
+        json.dump(setting_data, write_file, indent=1)
 
-    except Exception as e:
-        print(e)
-
+    crypt.encrypt_file(path.get_setting_path(), key)

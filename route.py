@@ -51,7 +51,7 @@ def setting_event(event, values):
 
     match event:
         case '-SAVE-':
-            print(event[values])
+            controller.save_setting(values)
 
 
 def register_event(event, values, window, auth):
@@ -78,8 +78,6 @@ def register_event(event, values, window, auth):
 
                     notification_message = f'registrasi berhasil dengan email {user_email}, kontak admin untuk validasi akun!'
                     popup.notification_pop(notification_message)
-
-
 
                 except Exception as error:
                     popup.error_popup(error)
