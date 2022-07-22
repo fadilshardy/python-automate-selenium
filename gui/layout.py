@@ -31,26 +31,25 @@ def main_layout() -> list:
     return layout
 
 
-def setting_layout() -> list:
+def setting_layout(setting_data) -> list:
     """
     setting GUI layout
 
     :return: list
     """
-    setting = {'-username-': 'test', '-password-': '****'}  # get_setting()
 
     layout = [
         [
             sg.Text("Username", size=(20, 1)),
-            sg.InputText(default_text=setting['-username-'],
+            sg.InputText(default_text=setting_data['username'],
                          size=(20, 1),
-                         key='-username-'),
+                         key='username'),
         ],
         [
             sg.Text("Password", size=(20, 1)),
-            sg.InputText(default_text=setting['-password-'],
+            sg.InputText(default_text=setting_data['password'],
                          size=(20, 1),
-                         key='-password-'),
+                         key='password'),
         ],
         [sg.Button('Start',  key='-START-', disabled=True), sg.Button('Setting',
                                                                       key='-SETTING-', disabled=False), sg.Button('Exit')],

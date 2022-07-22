@@ -48,7 +48,7 @@ def wait_element(driver: object, window: object, path: str, selector: str = 'xpa
 
 def find_element(driver: object, window: object, path: str, selector: str = 'xpath') -> dict:
     """
-    find an element with given identifier 
+    find an element with given identifier
 
     :return: webdriver element
     """
@@ -93,7 +93,7 @@ def check_element_clickable(driver: object, window: object, path: str, selector:
     """
     check if element with given identifier is clickable
 
-    :return: return boolean True if element is clickable
+    :return: return boolean True if clickable
     """
 
     identifier = get_selector(selector)
@@ -154,12 +154,14 @@ def check_if_text_is_present(driver: object,
         element_text = driver.find_element(identifier, path).text
 
         return text in element_text
+
     except NoSuchElementException:
         return False
 
     except WebDriverException:
         gui_events.write_event('-ERROR-', driver, window,
                                message='Browser tidak ditemukan')
+
 
 
 def select_input_element(text: str,

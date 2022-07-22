@@ -62,15 +62,15 @@ class Driver:
         chrome_service.creationflags = CREATE_NO_WINDOW
 
         webdriver.DesiredCapabilities.CHROME['acceptSslCerts'] = True
-        driverInstance = webdriver.Chrome(
+        driver_instance = webdriver.Chrome(
             service=chrome_service, options=self.driver_options)
-        driverInstance.execute_script(
+        driver_instance.execute_script(
             "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
-        driverInstance.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
+        driver_instance.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
             "source":
                 "const newProto = navigator.__proto__;"
                 "delete newProto.webdriver;"
                 "navigator.__proto__ = newProto;"
         })
 
-        return driverInstance
+        return driver_instance

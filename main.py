@@ -2,11 +2,10 @@ from dataclasses import dataclass
 
 from gui.main_gui import Gui
 from auth import Auth
-from gui.setting_gui import SettingGui
+from setting import Setting
 from utils.webdriver.driver import Driver
 
 import route
-import controller
 
 
 @dataclass
@@ -20,7 +19,6 @@ class Main:
         start main app instance
         """
         main_window = Gui().start_gui()
-        setting_window = SettingGui()
 
         driver = Driver()
         while True:
@@ -29,7 +27,8 @@ class Main:
                 route.main_event(driver, event, values, main_window)
 
                 if event == '-SETTING-':
-                    controller.open_setting_gui(setting_window)
+                    setting = Setting()
+                    setting.open_setting_gui()
 
                 if event in ('Exit', 'WIN_CLOSED'):
                     main_window.write_event_value('-CLOSE_APP-', driver)

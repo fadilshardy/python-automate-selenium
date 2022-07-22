@@ -79,6 +79,21 @@ def decrypt_to_bytes(filename, crypt_key) -> bytes:
 
     return decrypted_data
 
+def decrypt_to_dict(filename, crypt_key) -> dict:
+    """
+    decrypts file to dictionaries type
+
+    :return: decypted data (dict)
+    """
+
+    decrypted_data_bytes = decrypt_to_bytes(filename, crypt_key)
+
+    decrypted_data_dict = convert_to_dict(decrypted_data_bytes)
+
+    return decrypted_data_dict
+
+
+
 
 def convert_to_dict(data) -> dict:
     """

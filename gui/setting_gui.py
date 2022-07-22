@@ -11,7 +11,7 @@ class SettingGui:
     """
 
     # --------------------- GUI LAYOUT ---------------------
-    def start_gui(self) -> object:
+    def start_gui(self, setting_data: str) -> object:
         """
         method to initiate GUI
 
@@ -19,7 +19,7 @@ class SettingGui:
         """
         sg.change_look_and_feel('Light Green 1')
 
-        window = sg.Window('Pcare BPJS', layout.setting_layout(),
+        window = sg.Window('Pcare BPJS', layout.setting_layout(setting_data),
                            icon=r'resource\icon.ico', finalize=True, modal=True, element_justification='c')
 
         return window
@@ -28,7 +28,6 @@ class SettingGui:
 if __name__ == "__main__":
     try:
         gui = SettingGui()
-        gui.start_gui()
 
     except Exception as e:
         print(e)
