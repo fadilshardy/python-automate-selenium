@@ -1,4 +1,3 @@
-from operator import is_
 import os
 import re
 import PySimpleGUI as sg
@@ -93,7 +92,7 @@ def update_excel_table(user: list, status, window: object, driver: object):
     window.write_event_value('-AUTOMATE_LOOP-', driver)
 
 
-def check_file_is_writeable(file_path: str):
+def is_file_writeable(file_path: str):
     """
     workaround to check if file is writeable or not ***WINDOWS ONLY***
     """
@@ -121,10 +120,12 @@ def check_file_is_writeable(file_path: str):
 def check_if_email_valid(email):
     """
     check if email address is in a valid format using re.match
+
+    :return: is_valid (bool)
     """
 
-
-    is_valid = re.match(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email)
+    is_valid = re.match(
+        r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email)
 
     if is_valid is None:
         return False

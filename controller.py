@@ -2,6 +2,9 @@ import os
 import sys
 import threading
 import json
+import PySimpleGUI as sg
+
+from gui import popup
 
 from utils import excel, helper, crypt, path
 
@@ -40,13 +43,15 @@ def load_excel_to_gui(values, window):
     rows_count = helper.rows_input_popup()
 
     file_path = values['-LOAD_EXCEL-']
-    if not helper.check_file_is_writeable(file_path):
+
+    if not helper.is_file_writeable(file_path):
         return None
 
     df = excel.load_excel(file_path)
 
     df_status_none = excel.get_columns_by_status(
         df, status="NONE").head(rows_count)
+
     data = df_status_none[['PSNOKA_BPJS',
                            'NAMA INDIVIDU', 'STATUS']].values.tolist()
 
@@ -77,13 +82,21 @@ def update_excel_table(user: list, status: list, window: object, driver: object)
     Method to update table on excel
     """
 
+    popup_text = 'mengupdate excel... \njangan tutup aplikasi'
+    process_window = popup.updating_popup(popup_text)
+
+    process_window.Read(timeout=0)
+    sg.popup_auto_close(popup_text, no_titlebar=True)
+
     threading.Thread(target=helper.update_excel_table, args=(
-        user, status, window, driver,),  daemon=True).start()
+        user, status, window, driver),  daemon=True).start()
+
+    process_window.close()
 
 
 def automate_loop(driver, window):
     """
-    main automation loop, input if user by status None is available from table GUI
+    main automation loop, entry data if user by status `none` is available from table GUI
     """
 
     datalist = window['-TABLE-'].get()
@@ -112,9 +125,7 @@ def save_setting(setting_data):
     save setting data to `setting.json` and encrypt it.
     """
 
-
     key = crypt.load_key()
-
 
     with open(path.get_setting_path(), "w", encoding="utf-8") as write_file:
         json.dump(setting_data, write_file, indent=1)

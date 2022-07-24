@@ -23,7 +23,7 @@ def main_layout() -> list:
                   hide_vertical_scroll=False,
                   visible=True,
                   justification='center',
-
+                  font=("Calibri", 11),
                   num_rows=25)],
 
         [sg.Button('Start',  key='-START-', disabled=True), sg.Button('Setting',  key='-SETTING-', disabled=False), sg.Button('Exit')], ]

@@ -23,6 +23,12 @@ def main_event(driver, event, values, window):
             driver = values[event]
             controller.automate_loop(driver, window)
 
+        # case '-ENTRY_DATA-':
+        #     user = values[event]['user']
+        #     driver = values[event]['driver']
+        #     controller.entry_data(
+        #         user=user, window=window, driver=driver)
+
         case '-UPDATE_TABLE-':
             user = values[event]['user']
             status = values[event]['status']
@@ -81,3 +87,4 @@ def register_event(event, values, window, auth):
 
                 except Exception as error:
                     popup.error_popup(error)
+

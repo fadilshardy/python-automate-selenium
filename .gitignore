@@ -5,6 +5,7 @@ chromedriver.exe
 firebase-sdk.json
 crypt.key
 .setting.json
+*.xlsx
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
