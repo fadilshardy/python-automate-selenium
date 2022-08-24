@@ -23,12 +23,6 @@ def main_event(driver, event, values, window):
             driver = values[event]
             controller.automate_loop(driver, window)
 
-        # case '-ENTRY_DATA-':
-        #     user = values[event]['user']
-        #     driver = values[event]['driver']
-        #     controller.entry_data(
-        #         user=user, window=window, driver=driver)
-
         case '-UPDATE_TABLE-':
             user = values[event]['user']
             status = values[event]['status']
@@ -47,6 +41,13 @@ def main_event(driver, event, values, window):
             controller.data_empty(driver=values[event])
 
         case '-CLOSE_APP-':
+            controller.exit_app()
+
+        case '-ERROR-':
+            driver = values[event]['driver']
+            message = values[event]['message']
+
+            popup.error_popup(f'{message}\nclosing app...')
             controller.exit_app()
 
 
@@ -87,4 +88,3 @@ def register_event(event, values, window, auth):
 
                 except Exception as error:
                     popup.error_popup(error)
-

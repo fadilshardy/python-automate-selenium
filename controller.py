@@ -16,9 +16,9 @@ def exit_app():
     """
     method to force close driver & main app instance.
     """
+    os.system("taskkill /f /im  pcare-bpjs.exe")
 
     os.system("taskkill /f /im  chromedriver.exe")
-    # os.system("taskkill /f /im  pcare-vaksin.exe")
 
     sys.exit()
 
@@ -83,15 +83,13 @@ def update_excel_table(user: list, status: list, window: object, driver: object)
     """
 
     popup_text = 'mengupdate excel... \njangan tutup aplikasi'
-    process_window = popup.updating_popup(popup_text)
 
-    process_window.Read(timeout=0)
-    sg.popup_auto_close(popup_text, no_titlebar=True)
+    sg.popup_auto_close(popup_text, no_titlebar=True,
+                        keep_on_top=True, button_type=5)
 
     threading.Thread(target=helper.update_excel_table, args=(
         user, status, window, driver),  daemon=True).start()
 
-    process_window.close()
 
 
 def automate_loop(driver, window):

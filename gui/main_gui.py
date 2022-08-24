@@ -17,7 +17,7 @@ class Gui:
 
         :return: pysimplegui window instance
         """
-        sg.change_look_and_feel('Light Green 1')
+        sg.change_look_and_feel('darkBlack')
 
         window = sg.Window('Pcare BPJS', main_layout(),
                            icon=r'resource\icon.ico',

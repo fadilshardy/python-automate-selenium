@@ -30,8 +30,6 @@ simple auth wrapper using [firebase-admin-python](https://github.com/firebase/fi
 
 
 # TODO
-- ADD POPUP ANIMATION WHILE INPUT PROCESS TO EXCEL
-- 
 - FINISH AUTOMATION
 
 # THINGS TO IMPROVE

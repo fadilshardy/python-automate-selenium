@@ -1,5 +1,5 @@
 import os
-import ast
+import ast #noqa
 
 from cryptography.fernet import Fernet
 

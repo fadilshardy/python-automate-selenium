@@ -9,21 +9,21 @@ def main_layout() -> list:
     """
     data = []
     header_list = ['PSNOKA_BPJS', 'NAMA INDIVIDU', '  STATUS  ']
+    sg.theme('darkBlack')
 
     layout = [
-        [sg.FileBrowse('Load Excel', key="-PATH-", target='-LOAD_EXCEL-',  file_types=((".xlsx, xls, CSV", ["*.xlsx", "*.xls", "*.csv", ]),)),
-         sg.Input('', key="-LOAD_EXCEL-", enable_events=True, disabled=True)],
+        [sg.FileBrowse('Load Excel', key="-PATH-",  target='-LOAD_EXCEL-',  file_types=((".xlsx, xls, CSV", ["*.xlsx", "*.xls", "*.csv", ]),)),
+         sg.Input('', key="-LOAD_EXCEL-", enable_events=True, disabled=True, disabled_readonly_text_color="black")],
         [sg.Table(values=data,
                   key="-TABLE-",
                   headings=header_list,
                   display_row_numbers=False,
                   auto_size_columns=True,
-                  background_color='lightblue',
-                  alternating_row_color='lightyellow',
+                  background_color='black',
+                  alternating_row_color='gray',
                   hide_vertical_scroll=False,
                   visible=True,
                   justification='center',
-                  font=("Calibri", 11),
                   num_rows=25)],
 
         [sg.Button('Start',  key='-START-', disabled=True), sg.Button('Setting',  key='-SETTING-', disabled=False), sg.Button('Exit')], ]
