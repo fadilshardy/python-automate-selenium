@@ -17,7 +17,6 @@ class SettingGui:
 
         :return: pysimplegui window instance
         """
-        sg.change_look_and_feel('Light Green 1')
 
         window = sg.Window('Setting', layout.setting_layout(setting_data),
                            icon=r'resource\icon.ico', finalize=True, modal=True, element_justification='c')

@@ -43,11 +43,11 @@ def update_background_color(df: object) -> object:
     def row_style(row):
         if row['STATUS'] == "NONE":
             return ['background-color: #B3B6B7'] * len(row)
-        if row['STATUS'] == "BERHASIL":
+        if row['STATUS'] == "SUCCEED":
             return ['background-color: #239B56'] * len(row)
-        if row['STATUS'] == "GAGAL":
+        if row['STATUS'] == "FAILED":
             return ['background-color: #B03A2E'] * len(row)
-        if row['STATUS'] == "TIDAK AKTIF":
+        if row['STATUS'] == "NOT ACTIVE":
             return ['background-color: #283747'] * len(row)
         return ['background-color: #FBF8F1'] * len(row)
 
@@ -83,16 +83,16 @@ def get_columns_by_status(df: object, status: str) -> object:
     return columns_by_status
 
 
-def get_column_by_nik(df: object, nik: int) -> object:
+def get_column_by_email(df: object, email: str) -> object:
     """
-    filter columns of dataframe by nik
+    filter columns of dataframe by email
 
     :return: filtered dataframe object
     """
 
-    columns_by_nik = df.loc[df['PSNOKA_BPJS'] == nik]
+    column_by_email = df.loc[df['email'] == email]
 
-    return columns_by_nik
+    return column_by_email
 
 
 def get_first_nik_column_by_status_none(df: object) -> int:
@@ -111,25 +111,25 @@ def get_first_nik_column_by_status_none(df: object) -> int:
     return int(first_column_nik)
 
 
-def update_description_by_nik(df: object, nik: int, description: str) -> object:
+def update_description_by_email(df: object, email: str, description: str) -> object:
     """
-    update description of dataframe column filtered by nik with given status
+    update description of dataframe column filtered by email with given status
 
     :return: updated dataframe column
     """
 
-    df.loc[df['PSNOKA_BPJS'] == nik, 'DESCRIPTION'] = description
+    df.loc[df['email'] == email, 'DESCRIPTION'] = description
 
     return df
 
 
-def update_status_by_nik(df: object, nik: int, status: str) -> object:
+def update_status_by_email(df: object, email: str, status: str) -> object:
     """
     update status of dataframe column filtered by nik with given status
 
     :return: updated dataframe column
     """
 
-    df.loc[df['PSNOKA_BPJS'] == nik, 'STATUS'] = status.upper()
+    df.loc[df['email'] == email, 'STATUS'] = status.upper()
 
     return df

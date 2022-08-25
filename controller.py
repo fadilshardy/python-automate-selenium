@@ -3,13 +3,9 @@ import sys
 import threading
 import json
 import PySimpleGUI as sg
-
-from gui import popup
+from modules.example import entry
 
 from utils import excel, helper, crypt, path
-
-from modules.bpjs import login
-from modules.bpjs import search_user
 
 
 def exit_app():
@@ -23,16 +19,30 @@ def exit_app():
     sys.exit()
 
 
-def login_app(driver, window):
+def start_example(driver: object, window: object) -> None:
     """
-    Method to login the website
+    method to start example method to entry mock data
     """
     driver_instance = driver.get_driver()
 
     window['-START-'].update(disabled=True)
 
-    threading.Thread(target=login.login_website, args=(
-        driver_instance, window,),  daemon=True).start()
+    # threading.Thread(target=entry.entry_data, args=(
+    #     driver_instance, window,),  daemon=True).start()
+
+    window.write_event_value('-AUTOMATE_LOOP-', driver_instance)
+
+
+# def login_app(driver, window):
+#     """
+#     Method to login the website
+#     """
+#     driver_instance = driver.get_driver()
+
+#     window['-START-'].update(disabled=True)
+
+#     threading.Thread(target=login.login_website, args=(
+#         driver_instance, window,),  daemon=True).start()
 
 
 def load_excel_to_gui(values, window):
@@ -52,8 +62,8 @@ def load_excel_to_gui(values, window):
     df_status_none = excel.get_columns_by_status(
         df, status="NONE").head(rows_count)
 
-    data = df_status_none[['PSNOKA_BPJS',
-                           'NAMA INDIVIDU', 'STATUS']].values.tolist()
+    data = df_status_none[['id',
+                           'first_name', 'email', 'STATUS']].values.tolist()
 
     window['-TABLE-'].update(values=data)
     window['-START-'].update(disabled=False)
@@ -64,7 +74,7 @@ def automate_input(user, driver, window):
     Method to automate data to website
     """
 
-    threading.Thread(target=search_user.search, args=(
+    threading.Thread(target=entry.entry_data, args=(
         user, driver, window, ),  daemon=True).start()
 
 
@@ -82,14 +92,13 @@ def update_excel_table(user: list, status: list, window: object, driver: object)
     Method to update table on excel
     """
 
-    popup_text = 'mengupdate excel... \njangan tutup aplikasi'
+    popup_text = 'updating excel data... \nDont close the app.'
 
     sg.popup_auto_close(popup_text, no_titlebar=True,
                         keep_on_top=True, button_type=5)
 
     threading.Thread(target=helper.update_excel_table, args=(
         user, status, window, driver),  daemon=True).start()
-
 
 
 def automate_loop(driver, window):
@@ -99,7 +108,8 @@ def automate_loop(driver, window):
 
     datalist = window['-TABLE-'].get()
 
-    user = helper.get_first_user_with_status_none_from_table_gui(datalist)
+    user = helper.get_first_user_with_status_none_from_table_gui(
+        datalist)
 
     if user is None:
         return window.write_event_value('-DATA_EMPTY-', driver)

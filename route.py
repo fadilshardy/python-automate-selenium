@@ -9,7 +9,7 @@ def main_event(driver, event, values, window):
     """
     match event:
         case '-START-':
-            controller.login_app(driver, window)
+            controller.start_example(driver, window)
 
         case '-LOAD_EXCEL-':
             controller.load_excel_to_gui(values, window)

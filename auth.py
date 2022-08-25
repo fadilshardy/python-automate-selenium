@@ -22,7 +22,8 @@ class Auth:
             try:
                 event, values = register_window.read()
 
-                route.register_event(event, values, register_window, self.firebase)
+                route.register_event(
+                    event, values, register_window, self.firebase)
 
                 if event in ('Exit', 'WIN_CLOSED'):
                     register_window.close()
@@ -50,6 +51,8 @@ class Auth:
 
             if not user.disabled:
                 return True
+
+            return True
         except Exception as error:
             error_message = 'Terjadi kesalahan saat melakukan autentikasi ke database, cek koneksi internet.'
             popup.error_popup(error_message)

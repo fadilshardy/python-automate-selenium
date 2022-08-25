@@ -19,7 +19,7 @@ class Gui:
         """
         sg.change_look_and_feel('darkBlack')
 
-        window = sg.Window('Pcare BPJS', main_layout(),
+        window = sg.Window('Automation example', main_layout(),
                            icon=r'resource\icon.ico',
                            finalize=True,
                            modal=True,

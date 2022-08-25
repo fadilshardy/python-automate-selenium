@@ -27,7 +27,7 @@ def notification_pop(text: str) -> None:
     display notication popup with given text
     """
     sg.popup_no_buttons(
-        text, icon=r'resource\icon.ico',  auto_close=False, title="Berhasil!",  keep_on_top=True
+        text, icon=r'resource\icon.ico',  auto_close=False, title="success!",  keep_on_top=True
     )
 
 

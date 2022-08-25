@@ -8,7 +8,8 @@ def main_layout() -> list:
     :return: list
     """
     data = []
-    header_list = ['PSNOKA_BPJS', 'NAMA INDIVIDU', '  STATUS  ']
+    header_list = [' ID ',
+                   'First name', 'Email', ' Status ']
     sg.theme('darkBlack')
 
     layout = [
@@ -18,7 +19,8 @@ def main_layout() -> list:
                   key="-TABLE-",
                   headings=header_list,
                   display_row_numbers=False,
-                  auto_size_columns=True,
+                  auto_size_columns=False,
+                  col_widths=[5, 10, 20, 10],
                   background_color='black',
                   alternating_row_color='gray',
                   hide_vertical_scroll=False,

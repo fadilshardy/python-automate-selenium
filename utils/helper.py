@@ -14,7 +14,9 @@ def get_first_user_with_status_none_from_table_gui(datalist: list) -> list:
     :return: user (list)
     """
 
-    user = next((x for x in datalist if x[2] == "NONE"), None)
+    status_index = 3
+
+    user = next((x for x in datalist if x[status_index] == "NONE"), None)
 
     return user
 
@@ -37,7 +39,7 @@ def update_gui_table(user, status, window, driver) -> None:
 
     user_index = datalist.index(user)
 
-    datalist[user_index][2] = status['success'].upper()
+    datalist[user_index][3] = status['success'].upper()
 
     window['-TABLE-'].update(values=datalist)
 
@@ -65,7 +67,7 @@ def empty_popup() -> None:
     display  a popup if datalist has no user by status NONE
     """
 
-    sg.Popup('Tidak ada user dengan status NONE. check atau load ulang data')
+    sg.Popup('No user with status NONE. check or load the data again')
 
 
 def update_excel_table(user: list, status, window: object, driver: object):
@@ -78,12 +80,14 @@ def update_excel_table(user: list, status, window: object, driver: object):
 
     file_name = os.path.basename(file_path).split('.')[0]
 
-    user_nik = user[0]
+    email_index = 2
+
+    user_email = user[email_index]
 
     df = excel.load_excel(file_path)
 
-    excel.update_status_by_nik(df, user_nik, status['success'])
-    excel.update_description_by_nik(df, user_nik, status['message'])
+    excel.update_status_by_email(df, user_email, status['success'])
+    excel.update_description_by_email(df, user_email, status['message'])
 
     styled_df = excel.update_background_color(df)
     excel.save_to_excel(
@@ -111,7 +115,7 @@ def is_file_writeable(file_path: str):
 
     except OSError:
         error_popup = sg.Popup(
-            'Error!', f'file tidak bisa diedit, tutup aplikasi yang membuka file {file_name}')
+            'Error!', f'file is not editable, close any app that are using {file_name}')
 
         if error_popup == 'ok':
             return False
@@ -131,3 +135,21 @@ def check_if_email_valid(email):
         return False
 
     return True
+
+
+def get_user_by_email_from_excel(window, user):
+    """
+    get user data by email from excel
+
+    :return: user (list)
+    """
+
+    file_path = window['-LOAD_EXCEL-'].get()
+
+    dataframe = excel.load_excel(file_path)
+
+    email_index = 2
+
+    user = excel.get_column_by_email(dataframe, user[email_index])
+
+    return user.to_dict('list')

@@ -163,7 +163,6 @@ def check_if_text_is_present(driver: object,
                                message='Browser tidak ditemukan')
 
 
-
 def select_input_element(text: str,
                          driver: object,
                          window: object,
@@ -177,3 +176,28 @@ def select_input_element(text: str,
 
     Select(find_element(driver, window,
                         path=path, selector=selector)).select_by_visible_text(text)
+
+
+def find_elements(driver: object, window: object, path: str, selector: str = 'xpath') -> dict:
+    """
+    find an elements with given identifier
+
+    :return: webdriver element
+    """
+    identifier = get_selector(selector)
+
+    try:
+        elements = driver.find_elements(identifier, path)
+
+        return elements
+
+    except ElementNotInteractableException:
+        gui_events.write_event('-ERROR-', driver, window,
+                               message='element tidak bisa di klik')
+
+    except NoSuchAttributeException:
+        gui_events.write_event('-ERROR-', driver, window,
+                               message='element tidak ditemukan')
+    except WebDriverException:
+        gui_events.write_event('-ERROR-', driver, window,
+                               message='Browser tidak ditemukan')

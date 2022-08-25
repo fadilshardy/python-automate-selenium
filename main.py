@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from gui.main_gui import Gui
-from auth import Auth
+# from auth import Auth
 from setting import Setting
 from utils.webdriver.driver import Driver
 
@@ -40,10 +40,11 @@ class Main:
 
 if __name__ == "__main__":
     try:
-        auth = Auth()
+        # auth = Auth()
         main = Main()
 
-        if auth.check():
-            main.start_app()
+        # if auth.check():
+        #     main.start_app()
+        main.start_app()
     except Exception as e:
         print(e, )
