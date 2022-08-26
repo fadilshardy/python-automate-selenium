@@ -54,7 +54,7 @@ def rows_input_popup() -> int:
     :return: rows (int)
     """
     rows_count = sg.popup_get_text(
-        'how many rows?', no_titlebar=True, keep_on_top=True)
+        'how many rows?', no_titlebar=True, keep_on_top=True, default_text='10')
 
     if not rows_count:
         rows_count = 10

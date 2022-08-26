@@ -8,9 +8,9 @@ def main_layout() -> list:
     :return: list
     """
     data = []
-    header_list = [' ID ',
-                   'First name', 'Email', ' Status ']
-    sg.theme('darkBlack')
+    header_list = ['ID',
+                   'First name', 'Email', 'Status']
+    sg.theme('DarkTeal9')
 
     layout = [
         [sg.FileBrowse('Load Excel', key="-PATH-",  target='-LOAD_EXCEL-',  file_types=((".xlsx, xls, CSV", ["*.xlsx", "*.xls", "*.csv", ]),)),
@@ -21,8 +21,8 @@ def main_layout() -> list:
                   display_row_numbers=False,
                   auto_size_columns=False,
                   col_widths=[5, 10, 20, 10],
-                  background_color='black',
-                  alternating_row_color='gray',
+                  background_color='#006B7C',
+                  alternating_row_color='#00938B',
                   hide_vertical_scroll=False,
                   visible=True,
                   justification='center',

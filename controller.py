@@ -12,7 +12,7 @@ def exit_app():
     """
     method to force close driver & main app instance.
     """
-    os.system("taskkill /f /im  pcare-bpjs.exe")
+    os.system("taskkill /f /im  webinput-automation-gui.exe")
 
     os.system("taskkill /f /im  chromedriver.exe")
 
