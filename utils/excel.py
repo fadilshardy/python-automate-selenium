@@ -35,12 +35,13 @@ def add_status_column_to_excel(excel_path: str) -> list:
 
 def update_background_color(df: object) -> object:
     """
-    update background color of the dataframe based on status row.
+    update background co     lor of the dataframe based on status row.
 
     :return: updated dataframe list
     """
 
     def row_style(row):
+
         if row['STATUS'] == "NONE":
             return ['background-color: #B3B6B7'] * len(row)
         if row['STATUS'] == "SUCCEED":

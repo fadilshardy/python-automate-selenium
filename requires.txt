@@ -1,0 +1,8 @@
+chromedriver_autoinstaller
+cryptography
+firebase_admin
+jinja2
+pandas
+pysimplegui
+selenium
+nuitka
