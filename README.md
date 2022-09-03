@@ -4,19 +4,21 @@ Simple python desktop application for automating repetitive web-based input task
 
 [live demo](https://www.youtube.com/watch?v=tIiq2KftbTM) | [read more](https://fadilshardy.vercel.app/blog/python-webinput-automation-gui-with-selenium-and-pysimplegui) about the project
 
-## `<b>`How to install `</b>`
+## How to install
 
 Make sure you have [Python 3.10](https://www.python.org/downloads/windows/) and pip installed, then get necessary packages by running `pip install -r requires.txt`
 
 run the following scripts to comple into an executable file using nuitka.
 
-`nuitka main.py  --include-data-dir=resource=resource/  --run --onefile --include-package-data=selenium,pysimplegui,pandas,jinja2   --include-package=jinja2 --enable-plugin=tk-inter,numpy  --windows-icon-from-ico=resource/icon.ico  --noinclude-pytest-mode=nofollow --noinclude-setuptools-mode=nofollow --output-dir=build/ --clang --mingw64 --windows-disable-console`
+```
+nuitka main.py  --include-data-dir=resource=resource/  --run --onefile --include-package-data=selenium,pysimplegui,pandas,jinja2   --include-package=jinja2 --enable-plugin=tk-inter,numpy  --windows-icon-from-ico=resource/icon.ico  --noinclude-pytest-mode=nofollow --noinclude-setuptools-mode=nofollow --output-dir=build/ --clang --mingw64 --windows-disable-console
+```
 
 Depending on your computer, this might take some time.
 
 As of now the app only tested on windows OS.
 
-## `<b>`encrypt data `</b>`
+## `<b>`encrypt data
 
 simple helper to encrypt/decrpyt to prevent user from modifying sensitive data.
 how to use:
